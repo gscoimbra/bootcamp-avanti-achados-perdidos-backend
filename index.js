@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 const itemRoutes = require('./routes/itemRoutes');
+const usuarioRoutes = require('./routes/usuarioRoutes');
+const categoriaRoutes = require('./routes/categoriaRoutes');
 
 const app = express();
 const prisma = new PrismaClient();
@@ -11,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/', itemRoutes);
+app.use('/', usuarioRoutes);
+app.use('/', categoriaRoutes);
 
 // Rota teste
 app.get('/', (req, res) => {
