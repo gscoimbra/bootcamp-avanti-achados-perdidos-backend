@@ -1,4 +1,3 @@
-// index.js
 const express = require('express');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
@@ -15,6 +14,7 @@ app.use(express.json());
 app.use('/', itemRoutes);
 app.use('/', usuarioRoutes);
 app.use('/', categoriaRoutes);
+app.use('/uploads', express.static('uploads'));
 
 // Rota teste
 app.get('/', (req, res) => {

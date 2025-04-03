@@ -8,11 +8,12 @@ async function criarItem(req, res) {
       data,
       localizacao,
       contato,
-      foto,
       status,
       usuarioId,
       categoriaId
     } = req.body;
+
+    const foto = req.file ? req.file.filename : null;
 
     const novoItem = await prisma.item.create({
       data: {
@@ -22,8 +23,8 @@ async function criarItem(req, res) {
         contato,
         foto,
         status,
-        usuarioId,
-        categoriaId
+        usuarioId: parseInt(usuarioId),
+        categoriaId: parseInt(categoriaId)
       }
     });
 
@@ -74,13 +75,14 @@ async function listarItens(req, res) {
       data,
       localizacao,
       contato,
-      foto,
       status,
       usuarioId,
       categoriaId
     } = req.body;
   
     try {
+      const foto = req.file ? req.file.filename : undefined;
+  
       const itemAtualizado = await prisma.item.update({
         where: { id: parseInt(id) },
         data: {
@@ -88,16 +90,16 @@ async function listarItens(req, res) {
           data: new Date(data),
           localizacao,
           contato,
-          foto,
+          foto, // se undefined, o Prisma ignora e mantém a anterior
           status,
-          usuarioId,
-          categoriaId
+          usuarioId: parseInt(usuarioId),
+          categoriaId: parseInt(categoriaId)
         }
       });
   
       res.json(itemAtualizado);
     } catch (error) {
-      console.error(error);
+      console.error('[ERRO AO ATUALIZAR ITEM]', error);
       res.status(500).json({ erro: 'Erro ao atualizar item' });
     }
   }
