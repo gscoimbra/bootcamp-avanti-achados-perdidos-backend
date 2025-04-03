@@ -5,7 +5,7 @@ const { criarItem, listarItens, atualizarItem, removerItem } = require('../contr
 
 router.post('/itens', upload.single('foto'), criarItem);
 router.get('/itens', listarItens);
-router.put('/itens/:id', atualizarItem);
+router.put('/itens/:id', upload.single('foto'), atualizarItem);
 router.delete('/itens/:id', removerItem);
 
 module.exports = router;
