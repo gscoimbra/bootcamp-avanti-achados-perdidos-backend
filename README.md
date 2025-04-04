@@ -4,11 +4,12 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 
 ## ⚙️ Tecnologias Utilizadas
 
-- [Node.js]
-- [Express]
-- [Prisma ORM]
-- [PostgreSQL]
-- [Multer]
+- ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white&style=flat) [Node.js](https://nodejs.org/)
+- ![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white&style=flat) [Express](https://expressjs.com/)
+- ![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white&style=flat) [Prisma ORM](https://www.prisma.io/)
+- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?logo=postgresql&logoColor=white&style=flat) [PostgreSQL](https://www.postgresql.org/)
+- ![Multer](https://img.shields.io/badge/Multer-FF4A4A?style=flat&logo=npm&logoColor=white) [Multer](https://github.com/expressjs/multer)
+
 
 ## 🧰 Como rodar o projeto localmente
 
