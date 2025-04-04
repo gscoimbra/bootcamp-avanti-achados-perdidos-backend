@@ -185,6 +185,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 **Tipo de requisição:** Nenhum corpo ou parâmetro necessário
 
 - Listar todos os usuários: GET `/usuarios`
+
+#### ✅ Resposta de sucesso (exemplo simplificado):
 `[
 {
  "id": 1,
@@ -209,6 +211,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 **Tipo de requisição:** Nenhum corpo ou parâmetro necessário
 
 - Listar todas as categorias: GET `/categorias`
+
+#### ✅ Resposta de sucesso (exemplo simplificado):
 `[
   {
     "id": 1,
