@@ -149,8 +149,82 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 
 #### 🧪 Exemplos de requisição:
 
-- Listar todos os itens: GET /itens
-- Filtrar por itens perdidos: GET /itens?status=PERDIDO
-- Buscar itens encontrados da categoria 2 na estação: GET /itens?status=ENCONTRADO&categoriaId=2&localizacao=Estação
-- Buscar por nome com palavra-chave: GET /itens?busca=carteira
+- Listar todos os itens: GET `/itens`
+- Filtrar por itens perdidos: GET `/itens?status=PERDIDO`
+- Buscar itens encontrados da categoria 2 na estação: GET `/itens?status=ENCONTRADO&categoriaId=2&localizacao=Estação`
+- Buscar por nome com palavra-chave: GET `/itens?busca=carteira`
+
+#### ✅ Resposta de sucesso (exemplo simplificado):
+`
+[
+{
+  "id": 1,
+  "nome": "Carteira preta",
+  "data": "2025-04-01T00:00:00.000Z",
+  "localizacao": "Terminal Central",
+  "contato": "joao@email.com",
+  "foto": "1712096723456-carteira.jpg",
+  "status": "PERDIDO",
+  "usuario": {
+    "id": 1,
+    "nome": "João da Silva"
+  },
+  "categoria": {
+    "id": 2,
+    "nome": "Documentos"
+  }
+}
+]`
+
+### 📌 `GET /usuarios`
+
+**Descrição:** Lista todos os usuários cadastrados no sistema.
+
+**Método:** `GET`  
+**URL:** `/usuarios`  
+**Tipo de requisição:** Nenhum corpo ou parâmetro necessário
+
+- Listar todos os usuários: GET `/usuarios`
+`[
+{
+ "id": 1,
+ "nome": "João da Silva",
+ "telefone": "11999999999",
+ "email": "joao@email.com"
+},
+{
+ "id": 2,
+ "nome": "Maria Oliveira",
+ "telefone": "11988887777",
+ "email": "maria@email.com"
+}
+]`
+
+### 📌 `GET /categorias`
+
+**Descrição:** Lista todas as categorias disponíveis para classificação dos itens (ex: Chaves, Documentos, Eletrônicos).
+
+**Método:** `GET`  
+**URL:** `/categorias`  
+**Tipo de requisição:** Nenhum corpo ou parâmetro necessário
+
+- Listar todas as categorias: GET `/categorias`
+`[
+  {
+    "id": 1,
+    "nome": "Documentos"
+  },
+  {
+    "id": 2,
+    "nome": "Eletrônicos"
+  },
+  {
+    "id": 3,
+    "nome": "Chaves"
+  }
+]`
+
+
+
+
 
