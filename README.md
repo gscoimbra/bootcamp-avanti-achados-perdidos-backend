@@ -228,6 +228,206 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
   }
 ]`
 
+### 📌 `PUT /itens/:id`
+
+**Descrição:** Atualiza todos os dados de um item existente, incluindo a imagem, se enviada.
+
+**Método:** `PUT`  
+**URL:** `/itens/:id`  
+**Tipo de requisição:** `multipart/form-data`
+
+#### 🔸 Parâmetros de rota:
+
+| Parâmetro | Tipo   | Obrigatório | Descrição                       |
+|-----------|--------|-------------|---------------------------------|
+| id        | Número | ✅          | ID do item a ser atualizado     |
+
+#### 🔸 Campos do formulário (`form-data`):
+
+| Campo        | Tipo     | Obrigatório | Observação                               |
+|--------------|----------|-------------|-------------------------------------------|
+| nome         | Texto    | ✅          | Nome do item                              |
+| data         | Texto    | ✅          | Formato: `YYYY-MM-DD`                     |
+| localizacao  | Texto    | ✅          | Local onde foi perdido/encontrado         |
+| contato      | Texto    | ✅          | Telefone ou e-mail                        |
+| status       | Texto    | ✅          | `PERDIDO` ou `ENCONTRADO`                 |
+| usuarioId    | Número   | ✅          | ID de um usuário existente                |
+| categoriaId  | Número   | ✅          | ID de uma categoria existente             |
+| foto         | Arquivo  | ❌          | Envie nova imagem caso deseje substituir  |
+
+#### 🧪 Exemplo:
+
+**URL:** PUT `/itens/3`
+**Tipo de requisição:** `multipart/form-data`
+#### 🔸 Corpo da requisição (multipart/form-data):
+- `nome`: Carteira atualizada  
+- `data`: 2025-04-02  
+- `localizacao`: Estação Central  
+- `contato`: novo@email.com  
+- `status`: ENCONTRADO  
+- `usuarioId`: 1  
+- `categoriaId`: 2  
+- `foto`: *(arquivo de novo, opcional)*
+
+#### ✅ Resposta de sucesso (exemplo):
+
+`
+{
+"id": 3,
+"nome": "Carteira atualizada",
+"data": "2025-04-02T00:00:00.000Z",
+"localizacao": "Estação Central",
+"contato": "novo@email.com",
+"foto": "1712099999999-nova-imagem.png",
+"status": "ENCONTRADO",
+"usuarioId": 1,
+"categoriaId": 2
+}`
+
+### 📌 `PUT /usuarios/:id`
+
+**Descrição:** Atualiza os dados de um usuário existente no sistema.
+
+**Método:** `PUT`  
+**URL:** `/usuarios/:id`  
+**Tipo de requisição:** `application/json`
+
+#### 🔸 Parâmetros de rota:
+
+| Parâmetro | Tipo   | Obrigatório | Descrição                      |
+|-----------|--------|-------------|--------------------------------|
+| id        | Número | ✅          | ID do usuário a ser atualizado |
+
+####🧪 Exemplo:
+PUT `/usuarios/1`
+
+#### 🔸 Corpo da requisição (JSON):
+
+`
+{
+  "nome": "João Atualizado",
+  "telefone": "11988887777",
+  "email": "joao.atualizado@email.com"
+}`
+
+#### ✅ Resposta de sucesso (exemplo):
+
+`
+{
+  "id": 1,
+  "nome": "João Atualizado",
+  "telefone": "11988887777",
+  "email": "joao.atualizado@email.com"
+}`
+
+### 📌 `PUT /categorias/:id`
+
+**Descrição:** Atualiza os dados de uma categoria existente.
+
+**Método:** `PUT`  
+**URL:** `/categorias/:id`  
+**Tipo de requisição:** `application/json`
+
+---
+
+#### 🔸 Parâmetros de rota:
+
+| Parâmetro | Tipo   | Obrigatório | Descrição                         |
+|-----------|--------|-------------|-----------------------------------|
+| id        | Número | ✅          | ID da categoria a ser atualizada  |
+
+####🧪 Exemplo:
+PUT `/categorias/2`
+
+
+#### 🔸 Corpo da requisição (JSON):
+
+`
+{
+  "nome": "Eletrônicos"
+}`
+
+#### ✅ Resposta de sucesso (exemplo):
+
+`
+{
+  "id": 2,
+  "nome": "Eletrônicos"
+}`
+
+### 📌 `DELETE /itens/:id`
+
+**Descrição:** Remove um item do sistema com base no seu ID.
+
+**Método:** `DELETE`  
+**URL:** `/itens/:id`  
+**Tipo de requisição:** Não requer corpo (apenas o ID na URL)
+
+#### 🔸 Parâmetros de rota:
+
+| Parâmetro | Tipo   | Obrigatório | Descrição                     |
+|-----------|--------|-------------|-------------------------------|
+| id        | Número | ✅          | ID do item a ser removido     |
+
+#### 🧪 Exemplo:
+DELETE `/itens/5`
+
+#### ✅ Resposta de sucesso:
+
+`
+{
+  "mensagem": "Item removido com sucesso"
+}`
+
+### 📌 `DELETE /usuarios/:id`
+
+**Descrição:** Remove um usuário do sistema com base no seu ID.
+
+**Método:** `DELETE`  
+**URL:** `/usuarios/:id`  
+**Tipo de requisição:** Não requer corpo (apenas o ID na URL)
+
+#### 🔸 Parâmetros de rota:
+
+| Parâmetro | Tipo   | Obrigatório | Descrição                       |
+|-----------|--------|-------------|---------------------------------|
+| id        | Número | ✅          | ID do usuário a ser removido    |
+
+#### 🧪 Exemplo:
+DELETE `/usuarios/2`
+
+#### ✅ Resposta de sucesso:
+
+`
+{
+  "mensagem": "Usuário removido com sucesso"
+}`
+
+### 📌 `DELETE /categorias/:id`
+
+**Descrição:** Remove uma categoria do sistema com base no seu ID.
+
+**Método:** `DELETE`  
+**URL:** `/categorias/:id`  
+**Tipo de requisição:** Não requer corpo (apenas o ID na URL)
+
+#### 🔸 Parâmetros de rota:
+
+| Parâmetro | Tipo   | Obrigatório | Descrição                          |
+|-----------|--------|-------------|------------------------------------|
+| id        | Número | ✅          | ID da categoria a ser removida     |
+
+#### 🧪 Exemplo:
+DELETE `/categorias/3`
+
+#### ✅ Resposta de sucesso:
+
+`
+{
+  "mensagem": "Categoria removida com sucesso"
+}`
+
+
 
 
 
