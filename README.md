@@ -130,6 +130,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
   "nome": "Documentos",
 }`
 
+---
+
 ### 📌 `GET /itens`
 
 **Descrição:** Lista todos os itens cadastrados, com suporte a filtros opcionais por status, categoria, local e palavras-chave.
@@ -227,6 +229,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
     "nome": "Chaves"
   }
 ]`
+
+---
 
 ### 📌 `PUT /itens/:id`
 
@@ -328,8 +332,6 @@ PUT `/usuarios/1`
 **URL:** `/categorias/:id`  
 **Tipo de requisição:** `application/json`
 
----
-
 #### 🔸 Parâmetros de rota:
 
 | Parâmetro | Tipo   | Obrigatório | Descrição                         |
@@ -354,6 +356,8 @@ PUT `/categorias/2`
   "id": 2,
   "nome": "Eletrônicos"
 }`
+
+---
 
 ### 📌 `DELETE /itens/:id`
 
