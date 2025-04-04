@@ -72,7 +72,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 - `foto`: *(arquivo de imagem escolhido)*
 
 #### ✅ Resposta de sucesso:
-```json
+```bash
 {
   "id": 12,
   "nome": "Carteira preta",
@@ -84,9 +84,3 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
   "usuarioId": 1,
   "categoriaId": 2
 }
-  "telefone": "11999999999",
-  "email": "joao@email.com"
-}
-
-
-   
