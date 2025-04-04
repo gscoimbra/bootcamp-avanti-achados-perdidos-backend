@@ -72,6 +72,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 - `foto`: *(arquivo de imagem escolhido)*
 
 #### ✅ Resposta de sucesso:
+`
 {
   "id": 12,
   "nome": "Carteira preta",
@@ -82,4 +83,47 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
   "status": "PERDIDO",
   "usuarioId": 1,
   "categoriaId": 2
-}
+}`
+
+### 📌 `POST /usuarios`
+
+**Descrição:** Cadastra um novo usuário no sistema.
+**Método:** `POST`  
+**URL:** `/usuarios`  
+**Tipo de requisição:** `application/json`
+
+#### 🔸 Corpo da requisição (JSON):
+`
+{
+  "nome": "João da Silva",
+  "telefone": "11999999999",
+  "email": "joao@email.com"
+}`
+
+#### ✅ Resposta de sucesso:
+`{
+  "id": 1,
+  "nome": "João da Silva",
+  "telefone": "11999999999",
+  "email": "joao@email.com"
+}`
+
+### 📌 `POST /categorias`
+
+**Descrição:** Cadastra uma nova categoria no sistema.
+**Método:** `POST`  
+**URL:** `/categoria`  
+**Tipo de requisição:** `application/json`
+
+#### 🔸 Corpo da requisição (JSON):
+`
+{
+  "nome": "Documentos",
+}`
+
+#### ✅ Resposta de sucesso:
+`{
+  "id": 1,
+  "nome": "Documentos",
+}`
+
