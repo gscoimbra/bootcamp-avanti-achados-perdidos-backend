@@ -43,6 +43,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 ### 📌 `POST /itens`
 
 **Descrição:** Cadastra um novo item perdido ou encontrado.
+
 **Método:** `POST`  
 **URL:** `/itens`  
 **Tipo de requisição:** `multipart/form-data`  
@@ -88,6 +89,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 ### 📌 `POST /usuarios`
 
 **Descrição:** Cadastra um novo usuário no sistema.
+
 **Método:** `POST`  
 **URL:** `/usuarios`  
 **Tipo de requisição:** `application/json`
@@ -111,6 +113,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 ### 📌 `POST /categorias`
 
 **Descrição:** Cadastra uma nova categoria no sistema.
+
 **Método:** `POST`  
 **URL:** `/categoria`  
 **Tipo de requisição:** `application/json`
@@ -126,4 +129,28 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
   "id": 1,
   "nome": "Documentos",
 }`
+
+### 📌 `GET /itens`
+
+**Descrição:** Lista todos os itens cadastrados, com suporte a filtros opcionais por status, categoria, local e palavras-chave.
+
+**Método:** `GET`  
+**URL:** `/itens`  
+**Tipo de requisição:** `query string` (parâmetros opcionais)
+
+#### 🔸 Parâmetros opcionais:
+
+| Parâmetro     | Tipo     | Exemplo           | Descrição                                  |
+|---------------|----------|-------------------|----------------------------------------------|
+| status        | Texto    | `PERDIDO`         | Filtra por status (`PERDIDO` ou `ENCONTRADO`) |
+| categoriaId   | Número   | `1`               | Filtra por ID da categoria                   |
+| localizacao   | Texto    | `parque`          | Busca parcial por localização                |
+| busca         | Texto    | `chave`           | Busca parcial pelo nome do item              |
+
+#### 🧪 Exemplos de requisição:
+
+- Listar todos os itens: GET /itens
+- Filtrar por itens perdidos: GET /itens?status=PERDIDO
+- Buscar itens encontrados da categoria 2 na estação: GET /itens?status=ENCONTRADO&categoriaId=2&localizacao=Estação
+- Buscar por nome com palavra-chave: GET /itens?busca=carteira
 
