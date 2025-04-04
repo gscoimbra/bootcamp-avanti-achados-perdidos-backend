@@ -20,7 +20,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
    ```bash
    npm install
 
-3. **Configure o .env para a sua URL do PosgreSQL, a que segue é só um exemplo:**
+3. **Configure o .env para a sua URL do PostgreSQL, a que segue é só um exemplo:**
    ```bash
    DATABASE_URL="postgresql://usuario:senha@localhost:5432/achados_perdidos?schema=public"
 
@@ -84,5 +84,25 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
   "usuarioId": 1,
   "categoriaId": 2
 }
+
+### 📌 `POST /usuarios`
+
+**Descrição:** Cadastra um novo usuário no sistema.
+
+**Método:** `POST`  
+**URL:** `/usuarios`  
+**Tipo de requisição:** `application/json`
+
+---
+
+#### 🔸 Corpo da requisição (JSON):
+
+```json
+{
+  "nome": "João da Silva",
+  "telefone": "11999999999",
+  "email": "joao@email.com"
+}
+
 
    
