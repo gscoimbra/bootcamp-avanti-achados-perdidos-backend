@@ -59,8 +59,8 @@ async function listarItens(req, res) {
           } : undefined
         },
         include: { // Isso aqui é o seguinte, é como se eu estivesse falando para o Prisma, ""Prisma, me traga todos os itens, e junto de cada item, me envie os dados da categoria e do usuário relacionados.""
-          categoria: true, // Traz os dados da categoria relacionada
-          usuario: true // Traz os dados do usuário relacionado
+          categoria: true,
+          usuario: true
         },
         orderBy: {
           data: 'desc' // Ordena da mais recente para a mais antiga
@@ -127,5 +127,6 @@ async function listarItens(req, res) {
       res.status(500).json({ erro: 'Erro ao remover item' });
     }
   }
-
+  
+// Exporta as funções para uso nas rotas
 module.exports = { criarItem, listarItens, atualizarItem, removerItem };
