@@ -1,6 +1,8 @@
+// Instancia o cliente do Prisma para interagir com o banco de dados
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+// Cria um novo usuário com os dados recebidos no corpo da requisição
 async function criarUsuario(req, res) {
   try {
     const { nome, telefone, email } = req.body;
@@ -13,6 +15,7 @@ async function criarUsuario(req, res) {
   }
 }
 
+// Retorna todos os usuários cadastrados no sistema
 async function listarUsuarios(req, res) {
   try {
     const usuarios = await prisma.usuario.findMany();
@@ -22,6 +25,7 @@ async function listarUsuarios(req, res) {
   }
 }
 
+// Atualiza os dados de um usuário pelo ID informado na URL
 async function atualizarUsuario(req, res) {
     const { id } = req.params;
     const { nome, telefone, email } = req.body;
@@ -37,6 +41,7 @@ async function atualizarUsuario(req, res) {
     }
   }
   
+  // Remove um usuário com base no ID informado na URL
   async function removerUsuario(req, res) {
     const { id } = req.params;
   
@@ -50,4 +55,5 @@ async function atualizarUsuario(req, res) {
     }
   }
   
+  // Exporta as funções para serem usadas nas rotas
   module.exports = { criarUsuario, listarUsuarios, atualizarUsuario, removerUsuario};

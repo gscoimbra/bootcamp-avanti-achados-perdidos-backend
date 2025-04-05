@@ -1,6 +1,8 @@
+// Importa e instancia o cliente Prisma para acessar o banco de dados
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+// Cria uma nova categoria com base no nome enviado no corpo da requisição
 async function criarCategoria(req, res) {
   try {
     const { nome } = req.body;
@@ -13,6 +15,7 @@ async function criarCategoria(req, res) {
   }
 }
 
+// Lista todas as categorias existentes
 async function listarCategorias(req, res) {
   try {
     const categorias = await prisma.categoria.findMany();
@@ -22,13 +25,14 @@ async function listarCategorias(req, res) {
   }
 }
 
+// Atualiza o nome de uma categoria pelo ID informado na URL
 async function atualizarCategoria(req, res) {
     const { id } = req.params;
     const { nome } = req.body;
   
     try {
       const categoriaAtualizada = await prisma.categoria.update({
-        where: { id: parseInt(id) },
+        where: { id: parseInt(id) }, // Converte o ID para inteiro
         data: { nome }
       });
       res.json(categoriaAtualizada);
@@ -37,6 +41,7 @@ async function atualizarCategoria(req, res) {
     }
   }
   
+  // Remove uma categoria com base no ID informado na URL
   async function removerCategoria(req, res) {
     const { id } = req.params;
   
@@ -50,4 +55,5 @@ async function atualizarCategoria(req, res) {
     }
   }
   
+  // Exporta as funções para uso nas rotas
   module.exports = { criarCategoria, listarCategorias, atualizarCategoria, removerCategoria };
