@@ -74,7 +74,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 - `foto`: *(arquivo de imagem escolhido)*
 
 #### ✅ Resposta de sucesso:
-`
+```bash
 {
   "id": 12,
   "nome": "Carteira preta",
@@ -85,7 +85,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
   "status": "PERDIDO",
   "usuarioId": 1,
   "categoriaId": 2
-}`
+}
+```
 
 ### 📌 `POST /usuarios`
 
@@ -95,21 +96,24 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 **URL:** `/usuarios`  
 **Tipo de requisição:** `application/json`
 
-#### 🔸 Corpo da requisição (JSON):
-`
+#### 🔸 Exemplo de corpo da requisição (JSON):
+```bash
 {
   "nome": "João da Silva",
   "telefone": "11999999999",
   "email": "joao@email.com"
-}`
+}
+```
 
 #### ✅ Resposta de sucesso:
-`{
+```bash
+{
   "id": 1,
   "nome": "João da Silva",
   "telefone": "11999999999",
   "email": "joao@email.com"
-}`
+}
+```
 
 ### 📌 `POST /categorias`
 
@@ -119,17 +123,20 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 **URL:** `/categoria`  
 **Tipo de requisição:** `application/json`
 
-#### 🔸 Corpo da requisição (JSON):
-`
+#### 🔸 Exemplo de corpo da requisição (JSON):
+```bash
 {
   "nome": "Documentos",
-}`
+}
+```
 
 #### ✅ Resposta de sucesso:
-`{
+```bash
+{
   "id": 1,
   "nome": "Documentos",
-}`
+}
+```
 
 ---
 
@@ -157,8 +164,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 - Buscar itens encontrados da categoria 2 na estação: GET `/itens?status=ENCONTRADO&categoriaId=2&localizacao=Estação`
 - Buscar por nome com palavra-chave: GET `/itens?busca=carteira`
 
-#### ✅ Resposta de sucesso (exemplo simplificado):
-`
+#### ✅ Exemplo de resposta de sucesso:
+```bash
 [
 {
   "id": 1,
@@ -177,7 +184,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
     "nome": "Documentos"
   }
 }
-]`
+]
+```
 
 ### 📌 `GET /usuarios`
 
@@ -189,8 +197,9 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 
 - Listar todos os usuários: GET `/usuarios`
 
-#### ✅ Resposta de sucesso (exemplo simplificado):
-`[
+#### ✅ Exemplo de resposta de sucesso:
+```bash
+[
 {
  "id": 1,
  "nome": "João da Silva",
@@ -203,7 +212,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
  "telefone": "11988887777",
  "email": "maria@email.com"
 }
-]`
+]
+```
 
 ### 📌 `GET /categorias`
 
@@ -215,8 +225,9 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 
 - Listar todas as categorias: GET `/categorias`
 
-#### ✅ Resposta de sucesso (exemplo simplificado):
-`[
+#### ✅ Exemplo de Resposta de sucesso:
+```bash
+[
   {
     "id": 1,
     "nome": "Documentos"
@@ -229,7 +240,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
     "id": 3,
     "nome": "Chaves"
   }
-]`
+]
+```
 
 ---
 
@@ -264,7 +276,7 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 
 **URL:** PUT `/itens/3`
 **Tipo de requisição:** `multipart/form-data`
-#### 🔸 Corpo da requisição (multipart/form-data):
+#### 🔸 Exemplo de corpo da requisição (multipart/form-data):
 - `nome`: Carteira atualizada  
 - `data`: 2025-04-02  
 - `localizacao`: Estação Central  
@@ -274,9 +286,9 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 - `categoriaId`: 2  
 - `foto`: *(arquivo de novo, opcional)*
 
-#### ✅ Resposta de sucesso (exemplo):
+#### ✅ Resposta de sucesso:
 
-`
+```bash
 {
 "id": 3,
 "nome": "Carteira atualizada",
@@ -287,7 +299,8 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 "status": "ENCONTRADO",
 "usuarioId": 1,
 "categoriaId": 2
-}`
+}
+```
 
 ### 📌 `PUT /usuarios/:id`
 
@@ -306,24 +319,26 @@ Aplicação web back-end desenvolvida para ajudar pessoas a cadastrarem e consul
 ####🧪 Exemplo:
 PUT `/usuarios/1`
 
-#### 🔸 Corpo da requisição (JSON):
+#### 🔸 Exemplo de corpo da requisição (JSON):
 
-`
+```bash
 {
   "nome": "João Atualizado",
   "telefone": "11988887777",
   "email": "joao.atualizado@email.com"
-}`
+}
+```
 
-#### ✅ Resposta de sucesso (exemplo):
+#### ✅ Resposta de sucesso:
 
-`
+```bash
 {
   "id": 1,
   "nome": "João Atualizado",
   "telefone": "11988887777",
   "email": "joao.atualizado@email.com"
-}`
+}
+```
 
 ### 📌 `PUT /categorias/:id`
 
@@ -343,20 +358,22 @@ PUT `/usuarios/1`
 PUT `/categorias/2`
 
 
-#### 🔸 Corpo da requisição (JSON):
+#### 🔸 Exemplo de corpo da requisição (JSON):
 
-`
+```bash
 {
   "nome": "Eletrônicos"
-}`
+}
+```
 
-#### ✅ Resposta de sucesso (exemplo):
+#### ✅ Resposta de sucesso:
 
-`
+```bash
 {
   "id": 2,
   "nome": "Eletrônicos"
-}`
+}
+```
 
 ---
 
@@ -379,10 +396,11 @@ DELETE `/itens/5`
 
 #### ✅ Resposta de sucesso:
 
-`
+```bash
 {
   "mensagem": "Item removido com sucesso"
-}`
+}
+```
 
 ### 📌 `DELETE /usuarios/:id`
 
@@ -403,10 +421,11 @@ DELETE `/usuarios/2`
 
 #### ✅ Resposta de sucesso:
 
-`
+```bash
 {
   "mensagem": "Usuário removido com sucesso"
-}`
+}
+```
 
 ### 📌 `DELETE /categorias/:id`
 
@@ -427,10 +446,11 @@ DELETE `/categorias/3`
 
 #### ✅ Resposta de sucesso:
 
-`
+```bash
 {
   "mensagem": "Categoria removida com sucesso"
-}`
+}
+```
 
 
 

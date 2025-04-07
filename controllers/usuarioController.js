@@ -1,15 +1,25 @@
-// Instancia o cliente do Prisma para interagir com o banco de dados
+// Instancia o cliente do Prisma para interagir com o banco de dados, o bcrypt para criptografar a senha e o jwt como token de autenticação
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // Cria um novo usuário com os dados recebidos no corpo da requisição
 async function criarUsuario(req, res) {
   try {
-    const { nome, telefone, email } = req.body;
+    const { nome, telefone, email, senha } = req.body;
+
+    const senhaHash = await bcrypt.hash(senha, 10); // Criptografa a senha antes de salvar, 10 é o "salt rounds"
+
     const novoUsuario = await prisma.usuario.create({
-      data: { nome, telefone, email }
+      data: { 
+        nome,
+        telefone,
+        email,
+        senha: senhaHash
+      }
     });
-    res.status(201).json(novoUsuario);
+    res.status(201).json({ id: novoUsuario.id, nome: novoUsuario.nome, email: novoUsuario.email });
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao criar usuário' });
   }
@@ -54,6 +64,36 @@ async function atualizarUsuario(req, res) {
       res.status(500).json({ erro: 'Erro ao remover usuário' });
     }
   }
+
+  async function login(req, res) {
+    const { email, senha } = req.body;
+  
+    try {
+      const usuario = await prisma.usuario.findUnique({
+        where: { email }
+      });
+  
+      if (!usuario) {
+        return res.status(401).json({ erro: 'Usuário não encontrado' });
+      }
+  
+      const senhaValida = await bcrypt.compare(senha, usuario.senha);
+      if (!senhaValida) {
+        return res.status(401).json({ erro: 'Senha inválida' });
+      }
+  
+      // Gera o token JWT com o ID do usuário
+      const token = jwt.sign(
+        { id: usuario.id, nome: usuario.nome },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' } // token expira em 1 dia
+      );
+  
+      res.json({ token });
+    } catch (error) {
+      res.status(500).json({ erro: 'Erro ao realizar login' });
+    }
+  }
   
   // Exporta as funções para serem usadas nas rotas
-  module.exports = { criarUsuario, listarUsuarios, atualizarUsuario, removerUsuario};
+  module.exports = { criarUsuario, listarUsuarios, atualizarUsuario, removerUsuario, login};

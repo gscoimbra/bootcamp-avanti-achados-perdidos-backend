@@ -26,7 +26,7 @@ async function criarItem(req, res) {
         contato,
         foto,
         status,
-        usuarioId: parseInt(usuarioId), // garante que Prisma receba número, não string
+        usuarioId: req.usuario.id, // Em tese aqui também precisa ser um número, depois vejo como faz
         categoriaId: parseInt(categoriaId) // garante que Prisma receba número, não string
       }
     });
@@ -88,6 +88,13 @@ async function listarItens(req, res) {
     } = req.body;
   
     try {
+
+      // Verifica se o item existe e pertence ao usuário logado
+      const item = await prisma.item.findUnique({ where: { id: parseInt(id) } });
+      if (!item || item.usuarioId !== req.usuario.id) {
+        return res.status(403).json({ erro: 'Acesso negado: item não pertence ao usuário' });
+      }
+
       // Se uma nova imagem foi enviada, substitui a atual
       const foto = req.file ? req.file.filename : undefined;
   
@@ -100,7 +107,7 @@ async function listarItens(req, res) {
           contato,
           foto, // se undefined, o Prisma ignora e mantém a anterior
           status,
-          usuarioId: parseInt(usuarioId),
+          usuarioId: req.usuario.id, // Em tese precisa ser int
           categoriaId: parseInt(categoriaId)
         }
       });
@@ -117,6 +124,13 @@ async function listarItens(req, res) {
     const { id } = req.params;
   
     try {
+
+      // Verifica se o item existe e pertence ao usuário logado
+      const item = await prisma.item.findUnique({ where: { id: parseInt(id) } });
+      if (!item || item.usuarioId !== req.usuario.id) {
+      return res.status(403).json({ erro: 'Acesso negado: item não pertence ao usuário' });
+      }
+
       await prisma.item.delete({
         where: { id: parseInt(id) }
       });
@@ -127,6 +141,6 @@ async function listarItens(req, res) {
       res.status(500).json({ erro: 'Erro ao remover item' });
     }
   }
-  
+
 // Exporta as funções para uso nas rotas
 module.exports = { criarItem, listarItens, atualizarItem, removerItem };
