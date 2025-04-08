@@ -1,67 +1,56 @@
 // Instancia o cliente do Prisma para interagir com o banco de dados, o bcrypt para criptografar a senha e o jwt como token de autenticação
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const usuarioService = require('../services/usuarioService');
 
 // Cria um novo usuário com os dados recebidos no corpo da requisição
 async function criarUsuario(req, res) {
   try {
     const { nome, telefone, email, senha } = req.body;
+    const novoUsuario = await usuarioService.criarUsuario({ nome, telefone, email, senha });
 
-    const senhaHash = await bcrypt.hash(senha, 10); // Criptografa a senha antes de salvar, 10 é o "salt rounds"
-
-    const novoUsuario = await prisma.usuario.create({
-      data: { 
-        nome,
-        telefone,
-        email,
-        senha: senhaHash
-      }
+    res.status(201).json({
+      id: novoUsuario.id,
+      nome: novoUsuario.nome,
+      email: novoUsuario.email
     });
-    res.status(201).json({ id: novoUsuario.id, nome: novoUsuario.nome, email: novoUsuario.email });
   } catch (error) {
-    res.status(500).json({ erro: 'Erro ao criar usuário' });
+    next(error);
   }
 }
 
 // Retorna todos os usuários cadastrados no sistema
 async function listarUsuarios(req, res) {
   try {
-    const usuarios = await prisma.usuario.findMany();
+    const usuarios = await usuarioService.listarUsuarios();
     res.json(usuarios);
   } catch (error) {
-    res.status(500).json({ erro: 'Erro ao listar usuários' });
+    next(error);
   }
 }
 
 // Atualiza os dados de um usuário pelo ID informado na URL
 async function atualizarUsuario(req, res) {
-    const { id } = req.params;
-    const { nome, telefone, email } = req.body;
-  
-    try {
-      const usuarioAtualizado = await prisma.usuario.update({
-        where: { id: parseInt(id) },
-        data: { nome, telefone, email }
-      });
-      res.json(usuarioAtualizado);
-    } catch (error) {
-      res.status(500).json({ erro: 'Erro ao atualizar usuário' });
-    }
+  const { id } = req.params;
+  const { nome, telefone, email } = req.body;
+
+  try {
+    const usuario = await usuarioService.atualizarUsuario(id, { nome, telefone, email });
+    res.json(usuario);
+  } catch (error) {
+    next(error);
   }
+}
   
   // Remove um usuário com base no ID informado na URL
   async function removerUsuario(req, res) {
     const { id } = req.params;
   
     try {
-      await prisma.usuario.delete({
-        where: { id: parseInt(id) }
-      });
+      await usuarioService.removerUsuario(id);
       res.json({ mensagem: 'Usuário removido com sucesso' });
     } catch (error) {
-      res.status(500).json({ erro: 'Erro ao remover usuário' });
+      next(error);
     }
   }
 
@@ -69,29 +58,26 @@ async function atualizarUsuario(req, res) {
     const { email, senha } = req.body;
   
     try {
-      const usuario = await prisma.usuario.findUnique({
-        where: { email }
-      });
+      const usuario = await usuarioService.buscarPorEmail(email);
   
       if (!usuario) {
-        return res.status(401).json({ erro: 'Usuário não encontrado' });
+        throw { status: 404, message: 'Usuário não encontrado' };
       }
   
       const senhaValida = await bcrypt.compare(senha, usuario.senha);
       if (!senhaValida) {
-        return res.status(401).json({ erro: 'Senha inválida' });
+        throw { status: 401, message: 'Senha inválida' };
       }
   
-      // Gera o token JWT com o ID do usuário
       const token = jwt.sign(
         { id: usuario.id, nome: usuario.nome },
         process.env.JWT_SECRET,
-        { expiresIn: '1d' } // token expira em 1 dia
+        { expiresIn: '1d' }
       );
   
       res.json({ token });
     } catch (error) {
-      res.status(500).json({ erro: 'Erro ao realizar login' });
+      next(error);
     }
   }
   

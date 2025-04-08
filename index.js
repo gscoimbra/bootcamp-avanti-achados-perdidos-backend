@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
+const erroHandler = require('./middlewares/erroHandler');
 
 // Importa os arquivos de rotas
 const itemRoutes = require('./routes/itemRoutes');
@@ -32,3 +33,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+// Middleware global de erro, ideal colocar depois de todas as rotas
+app.use(erroHandler);
